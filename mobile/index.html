@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+  <meta name="theme-color" content="#0f1115">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="CoverCut">
+  <meta name="description" content="Montage vidéo mobile rapide : découpe, couleurs, recadrage, bandes son, export H.264 matériel.">
+  <title>CoverCut</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link rel="stylesheet" href="css/app.css">
+  <script type="importmap">
+    { "imports": { "mediabunny": "./vendor/mediabunny.min.mjs" } }
+  </script>
+</head>
+<body>
+  <!-- Accueil : liste des projets -->
+  <section id="home" class="screen">
+    <header class="home-head">
+      <div class="brand"><img src="icons/icon.svg" alt="" width="34" height="34"><h1>CoverCut</h1></div>
+      <p class="tagline">Montage vidéo rapide, sans chichis.</p>
+    </header>
+    <button id="btnNew" class="big-new">
+      <span class="plus">+</span><span>Nouveau projet</span>
+    </button>
+    <div id="supportWarn" class="warn hidden"></div>
+    <h2 class="list-title">Projets</h2>
+    <div id="projectList" class="project-list"></div>
+  </section>
+
+  <!-- Éditeur -->
+  <section id="editor" class="screen hidden">
+    <header class="topbar">
+      <button id="btnBack" class="icon-btn" aria-label="Retour"></button>
+      <input id="projName" class="proj-name" aria-label="Nom du projet" maxlength="60">
+      <button id="btnUndo" class="icon-btn" aria-label="Annuler"></button>
+      <button id="btnRedo" class="icon-btn" aria-label="Rétablir"></button>
+      <button id="btnExport" class="btn-export">Exporter</button>
+    </header>
+    <div id="previewWrap" class="preview-wrap">
+      <canvas id="preview"></canvas>
+      <div id="previewHint" class="preview-hint hidden"></div>
+      <div id="busy" class="busy hidden"><div class="spinner"></div><span id="busyText"></span></div>
+    </div>
+    <div class="transport">
+      <span id="timeCur" class="time">00:00.0</span>
+      <button id="btnZoomOut" class="icon-btn small" aria-label="Dézoomer la timeline"></button>
+      <button id="btnPlay" class="play-btn" aria-label="Lecture"></button>
+      <button id="btnZoomIn" class="icon-btn small" aria-label="Zoomer la timeline"></button>
+      <span id="timeTot" class="time dim">00:00.0</span>
+    </div>
+    <div id="timelineWrap" class="timeline-wrap"><canvas id="timeline"></canvas></div>
+    <nav id="toolbar" class="toolbar"></nav>
+  </section>
+
+  <!-- Feuille d'outils (réglages) -->
+  <div id="sheet" class="sheet hidden" role="dialog">
+    <div class="sheet-head">
+      <span id="sheetTitle"></span>
+      <button id="sheetClose" class="sheet-ok" aria-label="Valider"></button>
+    </div>
+    <div id="sheetBody" class="sheet-body"></div>
+  </div>
+
+  <div id="toast" class="toast" role="status"></div>
+  <input type="file" id="fileVideo" accept="video/*" multiple hidden>
+  <input type="file" id="fileAudio" accept="audio/*,video/*,.mp3,.wav,.m4a,.aac,.flac,.ogg,.opus" hidden>
+  <div id="videoPool" class="video-pool" aria-hidden="true"></div>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
